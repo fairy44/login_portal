@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp page</title>
+    <style>
+        
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(16, 40, 16);
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 350px;
+}
+.login-card h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    
+}
+
+.login-form .input-group {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.login-form button  {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #172534;
+}
+
+a{
+    color: black;
+
+}
+
+</style>
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h3>Sign Up </h3>
+        <form  action="" method="post" class="login-form">
+        {% csrf_token %}
+        <div class="input-group">
+        <label for="">Username</label>
+        <input type="text" name="username" id="username" placeholder="create an Username" required=""> <br>
+    </div>
+        <div class="input-group">
+        <label for="">First name</label>
+        <input type="text" name="fname" id="fname" placeholder="Enter Your First Name"required=""><br>
+    </div>
+        <div class="input-group">
+        <label for="">Last name</label>
+        <input type="text" name="lname" id="lname" placeholder="Enter Your Last Name"> <br>
+    </div>
+        <div class="input-group">
+        <label for="">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter Your Email-id" required=""><br>
+    </div>
+        <div class="input-group">
+        <label for="">Password</label>
+        <input type="password" name="pass1" id="pass1" placeholder="Enter Your Password" required=""><br>
+    </div>
+        <div class="input-group">
+        <label for="">Confirm Your Password</label>
+        <input type="password" name="pass2" id="pass2" placeholder="Enter Your Confirm Password" required=""><br>
+    </div>
+
+        <button type="submit">signup</button>
+        <a href=" {% url 'login' %}">I have an account</a>    
+
+        <button id="alertButton" class="hidden">you can't skip me.</button>
+        <script>
+            var alertButton = document.getElementById('alertButton');
+            alertButton.addEventListener('click', function () {
+    alert(alertButton.textContent);
+});
+</script>            
+    </form>
+</div>
+</div>
+<script>
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.querySelector(".login-form");
+        var pass1 = document.getElementById("pass1");
+        var pass2 = document.getElementById("pass2");
+
+        form.addEventListener("submit", function (event) {
+            var errorMessage = document.createElement("div");
+            errorMessage.textContent = "Passwords do not match. Please try again.";
+            errorMessage.style.color = "red";
+            errorMessage.style.marginTop = "5px";
+
+            if (pass1.value !== pass2.value) {
+                event.preventDefault(); // Prevent form submission
+                pass2.parentNode.appendChild(errorMessage); // Append error message near Confirm Password input
+                pass2.style.borderColor = "red"; // Highlight the Confirm Password input with a red border
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+{% load socialaccount %} 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+.btn {
+    
+    text-decoration: none;
+    display: inline-block;
+    width: 50%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    
+
+}
+.btn :hover{
+    background-color: #172534;
+}
+a{
+    color: black;
+
+}
+.table{
+    border: 2px solid black;
+    padding: 20px;
+    
+    
+}
+.table thead tr th{
+    height: 50px;
+    width: 100px;
+    border: 2px solid black;
+    text-align: center;
+    color: white;
+    background-color: black;
+}
+.table tbody tr td{
+    height: 50px;
+    width: 100px;
+    border: 2px solid black;
+    text-align: center;
+}
+.table tbody tr th{
+    height: 50px;
+    width: 100px;
+    border: 2px solid black;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    
+    <h1>Database Table Show</h1>
+<table class="table">
+    <thead >
+      <tr>
+        <th scope="col">S.no</th>
+        <th scope="col">Username</th>
+        <!-- <th scope="col">First_Name</th> -->
+        <!-- <th scope="col">Last_Name</th> -->
+        <th scope="col">Password</th>
+        <th scope="col">Login_Time</th>
+        <th scope="col">Logout_Time</th>
+        <th scope="col">Login method</th>
+        <!-- <th scope="col">Email</th> -->
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in timedata %}
+
+
+      <tr>
+      
+        <td>{{i.id}}</td>
+        <td>{{i.Username}}</td>
+        <!-- <td>{{i.First_name}}</td> -->
+        <!-- <td>{{i.Last_name}}</td> -->
+        <td>{{i.Password}}</td>
+        <td>{{ i.login_time }}</td>  <!-- Display the login time -->
+        <td>{{ i.logout_time }}</td>  <!-- Display the logout time -->
+        <td>{{ i.login_method }}</td>  <!-- Display the logout time -->
+        <!-- <td>{{i.Email_Address}}</td> -->
+        
+      </tr>
+    
+
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  {% if is_google_authenticated %}
+    <p>User is a Google user.</p>
+{% else %}
+    <p>User is not a Google user.</p>
+{% endif %}
+  <br><br><br><br><br>
+  <button class="btn">
+    <a href="{% url 'logout' %}" class="btn">Logout</a>
+</button>
+
+
+
+<hr/>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Provider</th>
+            <!-- Add other fields as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in social_auth_entries %}
+        <tr>
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.user }}</td>
+            <td>{{ entry.provider }}</td>
+            <!-- Add other fields as needed -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
